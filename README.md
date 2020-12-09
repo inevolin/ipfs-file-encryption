@@ -98,10 +98,12 @@ Q:  How would you improve the key management?
 A:  In the current state anyone can access, download and decrypt the data.
     A secure solution will need to authenticate and authorize users.
     Whereby each user has its own private key for decrypting the data.
+    
     This can be done using accounts (login / dashboard pages):
       - user creates an account (username and password OR using third-party auth like Google/Github/...)
       - a private key will be generated for the account
     * a database system should be utilized
+    
     Another solution would be to store the private key in the browser's local storage.
     The key will then be provided to the API.
     Some web portal will have to be built for this as well.
@@ -113,23 +115,30 @@ Q:  How would you compare and contrast HTTP with p2p protocols
     
 A:  IPFS dominates over bittorrent in terms of availability and performance.
     Due to content-addressing it prevents file duplication.
+    
     Individual file(s) can be easily downloaded from some "source";
     whereas with Bittorrent one has to create a ".torrent" file, submit it to tracker(s) and seed it.
+    
     IPFS on the other hand is much faster on making files available for sharing.
     IPFS files can be distributed and load-balanced, making it a perfect CDN solution.
     This isn't possible with BitTOrrent at all.
+    
     File-streaming works out of the box over HTTP in IPFS.
     Whereas streaming in BitTorrent is a paid feature.
+    
     Large files are being chunked/sharded in IPFS.
-    So one can download shunks from different nodes and maximize bandwidth usage.
+    So one can download chunks from different nodes and maximize bandwidth usage.
     This is both done in IPFS and BitTorrent.
+    
     BitTorrent has a high barrier to entry for new people trying to share files.
     Whereas IPFS easily integrates to a drag-and-drop interface.
+    
     With IPFS one chooses which files he/she wants to "seed".
     While BitTorrent requires you to seed all files within the torrent.
     *   BitTorrent clients did improve over the years,
         it is possible to download file subsets,
         and it may be possile to seed file subsets.
+        
     IPFS works over HTTP REST, whereas torrents only work over the BitTorrent protocol.
     This makes it harder for the community to build p2p apps/services/solutions.
     
