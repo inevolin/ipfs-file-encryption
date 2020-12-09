@@ -77,12 +77,20 @@ Decrypting the file happens in a similar fashion:
 4. Extracts the IV value from the header.
 5. Decrypts the file data using the decrypted key from step 3 and the IV value.
 
-#### Notes
+#### notes
 We use both RSA and AES algorithms: RSA can only encrypt a limited amount of data, no longer than its key size, thus we us it to encrypt the AES's secret key. Then the symmetrical AES strategy is used for encrypting potentially large amounts of data, the file data itself.
 
 You could use AES solely as well for simplicity reasons. However the advantage of having RSA included is that we can generate many RSA decryption keys (= private key) for end-users whilst having only one encryption key (= public key); instead of sharing just one key with all of the users.
 
 Further developments are definitely possible and in some cases encouraged.
+
+## support
+
+For enquiries or issues get in touch with me:
+
+Name: Ilya Nevolin
+
+Email: ilja.nevolin@gmail.com
 
 ## Q&A
 ```
@@ -119,11 +127,11 @@ A:  IPFS dominates over bittorrent in terms of availability and performance.
     Due to content-addressing it prevents file duplication.
     
     Individual file(s) can be easily downloaded from some "source";
-    whereas with Bittorrent one has to create a ".torrent" file, submit it to tracker(s) and seed it.
+    whereas with BitTorrent one has to create a ".torrent" file, submit it to tracker(s) and seed it.
     
     IPFS on the other hand is much faster on making files available for sharing.
     IPFS files can be distributed and load-balanced, making it a perfect CDN solution.
-    This isn't possible with BitTOrrent at all.
+    This isn't possible with BitTorrent at all.
     
     File-streaming works out of the box over HTTP in IPFS.
     Whereas streaming in BitTorrent is a paid feature.
