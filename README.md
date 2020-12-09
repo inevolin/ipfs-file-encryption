@@ -22,23 +22,29 @@ node index.js
 IPFS has a webUI located at http://localhost:5001/webui/
 
 ### file upload and download functions
+Use the provided `_testing()` function to test and verify these features:
+
 ```JS
-const file = 'package.json'  // file to upload
-const ipfspath = '/encrypted/data/' + file // ipfspath
+async function _testing() {
+  const file = 'package.json'  // file to upload
+  const ipfspath = '/encrypted/data/' + file // ipfspath
+  
+  // upload to ipfs path
+  await uploadFileEncrypted(file, ipfspath)
+  
+  // download from ipfs path
+  const dl = await downloadFileEncrypted(ipfspath)
+  
+  // to buffer
+  const buff = Buffer.from(dl, 'hex')
 
-// upload
-await uploadFileEncrypted(file, ipfspath)
-
-// download
-const dl = await downloadFileEncrypted(ipfspath)
-
-// to buffer
-const buff = Buffer.from(dl, 'hex')
-
-// save buffer to file
-fs.writeFile(ipfspath.replace(/\//g, '_'), buff, function(err) {
-  if (err) throw err;
-})
+  // save buffer to file
+  const outfile = ipfspath.replace(/\//g, '_');
+  console.log('writing:', outfile)
+  fs.writeFile(outfile, buff, function(err) {
+    if (err) throw err;
+  })
+}
 ```
 ### file browser
 Visit http://localhost:3000/ to see all your uploaded files. Clicking the filename will decrypt and download that file.
