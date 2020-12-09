@@ -7,6 +7,14 @@ const fs = require('fs');
 const path = require('path');
 const crypto = require('crypto');
 
+////////////////////////////////
+//////////// IPFS //////////////
+////////////////////////////////
+
+generateKeys()
+// _testing()
+
+
 async function uploadFileEncrypted(file, ipfspath) {
   try {
     const buff = fs.readFileSync(file);
@@ -74,21 +82,6 @@ async function downloadFileEncrypted(ipfspath) {
     throw err;
   }
 }
-async function _testing() {
-  const file = 'package.json'  // file to upload
-  const ipfspath = '/encrypted/data/' + file // ipfspath
-  await uploadFileEncrypted(file, ipfspath)
-  await downloadDemo(ipfspath)
-} _testing()
-
-async function downloadDemo(ipfspath) {
-  const dl = await downloadFileEncrypted(ipfspath)
-  const buff = Buffer.from(dl, 'hex')
-
-  fs.writeFile(ipfspath.replace(/\//g, '_'), buff, function(err) {
-    if (err) throw err;
-  })
-}
 
 async function getUploadedFiles(ipfspath='/encrypted/') {
   let files = []
@@ -123,6 +116,9 @@ function decryptAES(buffer, secretKey, iv) {
 }
 
 function generateKeys() {
+  if (fs.existsSync('private.pem') && fs.existsSync('public.pem'))
+    return;
+  
   const { privateKey, publicKey } = crypto.generateKeyPairSync('rsa', {
     modulusLength: 4096,
     publicKeyEncoding: {
@@ -139,10 +135,7 @@ function generateKeys() {
 
   fs.writeFileSync('private.pem', privateKey)
   fs.writeFileSync('public.pem', publicKey)
-} 
-// use the function:
-// generateKeys()
-// to generate public/private key pair files
+}
 
 function encryptRSA(toEncrypt, pubkeyPath='public.pem') {
   const absolutePath = path.resolve(pubkeyPath)
@@ -166,9 +159,31 @@ function decryptRSA(toDecrypt, privkeyPath='private.pem') {
   return decrypted.toString('utf8')
 }
 
+async function _testing() {
+  const file = 'package.json'  // file to upload
+  const ipfspath = '/encrypted/data/' + file // ipfspath
+  
+  // upload to ipfs path
+  await uploadFileEncrypted(file, ipfspath)
+  
+  // download from ipfs path
+  const dl = await downloadFileEncrypted(ipfspath)
+  
+  // to buffer
+  const buff = Buffer.from(dl, 'hex')
+
+  // save buffer to file
+  const outfile = ipfspath.replace(/\//g, '_');
+  console.log('writing:', outfile)
+  fs.writeFile(outfile, buff, function(err) {
+    if (err) throw err;
+  })
+} 
+
 ////////////////////////////////
 ///////// REST API /////////////
 ////////////////////////////////
+
 const rest_port = 3000;
 const express = require("express");
 const app = express();
@@ -187,17 +202,27 @@ app.get("/api/files", async (req, res, next) => {
 });
 
 app.get(/^\/api\/file(\/.*)$/, async (req, res, next) => {
-  const ipfspath = req.params[0];
-  const content = await downloadFileEncrypted(ipfspath)
-  res.send(content)
+  try {
+    const ipfspath = req.params[0];
+    const content = await downloadFileEncrypted(ipfspath)
+    res.send(content)
+  } catch (err) {
+    res.send('error: ' + err)
+  }
 });
 
 app.listen(rest_port, () => {
  console.log("Server running on port 3000");
 });
 
-/* 
-WRITTEN QUESTIONS
+////////////////////////////////
+////////////////////////////////
+////////////////////////////////
+
+
+/*//////////////////////////////
+///// WRITTEN QUESTIONS ////////
+////////////////////////////////
 
 Q:  How would you solve sharing these encrypted images with
     a friend via a public link?
@@ -261,4 +286,7 @@ A:  Focus on simplicity and community:
       - simplify the protocol / architecture
       - build it on HTTP REST.
     This way the community can innovate at a much faster pace.
-*/
+
+////////////////////////////////
+////////////////////////////////
+//////////////////////////////*/
