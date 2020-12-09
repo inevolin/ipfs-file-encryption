@@ -66,6 +66,8 @@ For very large files you may want to do this on-disk instead (e.g. using pipes).
 
 ![file forward encryption](/assets/imgs/ipfs_encrypt.png?raw=true)
 
+* the 16 byte key and 8 byte IV values are converted to hex and result in a 32 byte key and 16 byte IV.
+
 The output file consists of a header, RSA encrypted key + IV, and the AES encrypted data of the original file.
 
 Decrypting the file happens in a similar fashion:
