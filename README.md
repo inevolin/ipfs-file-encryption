@@ -12,7 +12,6 @@ Run the following in another prompt:
 git clone https://github.com/healzer/ipfs-demos.git
 cd ipfs-demos
 
-npm init
 npm install
 
 node index.js
