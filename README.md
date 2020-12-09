@@ -78,9 +78,9 @@ Decrypting the file happens in a similar fashion:
 5. Decrypts the file data using the decrypted key from step 3 and the IV value.
 
 #### notes
-We use both RSA and AES algorithms: RSA can only encrypt a limited amount of data, no longer than its key size, thus we us it to encrypt the AES's secret key. Then the symmetrical AES strategy is used for encrypting potentially large amounts of data, the file data itself.
+We use both RSA and AES algorithms: RSA can only encrypt a limited amount of data, no longer than its key size, thus we use it to encrypt the AES's secret key. Then the symmetrical AES strategy is used for encrypting potentially large amounts of data, i.e. the file's data itself.
 
-You could use AES solely as well for simplicity reasons. However the advantage of having RSA included is that we can generate many RSA decryption keys (= private key) for end-users whilst having only one encryption key (= public key); instead of sharing just one key with all of the users.
+You could use AES solely as well for simplicity reasons. However the advantage of having RSA included is that we can generate many RSA decryption keys (= private keys) for end-users whilst having only one encryption key (= public key); instead of sharing just one key with all of the users.
 
 Further developments are definitely possible and in some cases encouraged.
 
