@@ -64,7 +64,7 @@ The encryption strategy uses both RSA and AES to achieve maximum security.
 Encrypting a file for upload is done as shown on the diagram below, all of this happens in-memory.
 For very large files you may want to do this on-disk instead (e.g. using pipes).
 
-![file forward encryption](https://raw.githubusercontent.com/healzer/ipfs-file-encryption/main/assets/imgs/ipfs_encrypt.png?token=ACIMQFUGCX2TFDIEK6MNOWK72C6LC)
+![file forward encryption](/assets/imgs/ipfs_encrypt.png?raw=true)
 
 The output file consists of a header, RSA encrypted key + IV, and the AES encrypted data of the original file.
 
