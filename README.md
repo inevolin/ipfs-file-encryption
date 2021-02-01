@@ -84,11 +84,11 @@ You could use AES solely as well for simplicity reasons. However the advantage o
 
 Further developments are definitely possible and in some cases encouraged.
 
-## support
+## Contact
 
 For enquiries or issues get in touch with me:
 
-Name: Ilya Nevolin
+Name: [Ilya Nevolin](https://www.linkedin.com/in/iljanevolin/)
 
 Email: ilja.nevolin@gmail.com
 
